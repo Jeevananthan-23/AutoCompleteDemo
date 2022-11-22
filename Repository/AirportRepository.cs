@@ -8,12 +8,10 @@ namespace AutoCompleteDemo.Repository
     public class AirportRepository
     {
         private readonly IRedisConnection? _connection;
-        private readonly IRedisCollection<Airport>? _airportCollection;
-        private static string SUG_KEY = "sugg:airport:name";
+        private static readonly string SUG_KEY = "sugg:airport:name";
 
         public AirportRepository(RedisConnectionProvider redisConnectionProvider)
         {
-            _airportCollection = redisConnectionProvider.RedisCollection<Airport>();
             _connection = redisConnectionProvider.Connection;
         }
         

@@ -10,7 +10,7 @@ namespace AutoCompleteDemo.Repository
     {
         private static IRedisConnection? _connection;
         private static IRedisCollection<Airport>? _airportCollection;
-        private static string SUG_KEY = "sugg:airport:name";
+        private static readonly string SUG_KEY = "sugg:airport:name";
         public static async Task Seed(IServiceScope serviceScope)
         {
             var tasks = new List<Task<string>>();
