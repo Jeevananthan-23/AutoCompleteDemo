@@ -8,7 +8,7 @@ namespace AutoCompleteDemo.Repository
     public class AirportRepository
     {
         private readonly IRedisConnection? _connection;
-        private static readonly string SUG_KEY = "sugg:airport:name";
+        private const string SUG_KEY = "sugg:airport:name";
 
         public AirportRepository(RedisConnectionProvider redisConnectionProvider)
         {
@@ -21,7 +21,7 @@ namespace AutoCompleteDemo.Repository
             var ret = new List<Suggestion>();
             args.Add(SUG_KEY);
             args.Add(perfix);
-            if(WITHPAYLOAD is true)
+            if(WITHPAYLOAD)
             {
                 args.Add("WITHPAYLOADS");
             }

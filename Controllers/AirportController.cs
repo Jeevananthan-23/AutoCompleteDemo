@@ -16,8 +16,7 @@ namespace AutoCompleteDemo.Controllers
         }
 
         
-        [HttpGet]
-        [Route("search/{query?}")]
+        [HttpGet("search/{query?}")]
         public async Task<ActionResult<List<Suggestion>>> AutoCompleteName(string query)
         {
             var authorsuggestion = await _airportRepository.AutoCompleteName(query, true);

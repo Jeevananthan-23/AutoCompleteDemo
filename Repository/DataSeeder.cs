@@ -10,10 +10,9 @@ namespace AutoCompleteDemo.Repository
     {
         private static IRedisConnection? _connection;
         private static IRedisCollection<Airport>? _airportCollection;
-        private static readonly string SUG_KEY = "sugg:airport:name";
+        private const string SUG_KEY = "sugg:airport:name";
         public static async Task Seed(IServiceScope serviceScope)
         {
-            var tasks = new List<Task<string>>();
             var args = new List<string>();
             var connectionProvider = serviceScope.ServiceProvider.GetService<RedisConnectionProvider>();
             _connection = connectionProvider.Connection;
@@ -27,14 +26,10 @@ namespace AutoCompleteDemo.Repository
                                 })
                                 .ToList();
           var index =  _connection.CreateIndex(typeof(Airport));
-            if (index is true)
+            if (index)
             {
-               
-                foreach (var airport in airports)
-                {
-                    tasks.Add(_connection.SetAsync(airport));
-                }
-                await Task.WhenAll(tasks);
+
+                await _airportCollection.Insert(airports);
                 var listOfAirports = await _airportCollection.ToListAsync();
                 foreach (var airport in listOfAirports)
                 {
